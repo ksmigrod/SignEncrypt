@@ -31,37 +31,68 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+        <h1>
+<a name="szyfrowanie-plik%C3%B3w-na-potrzeby-giif" class="anchor" href="#szyfrowanie-plik%C3%B3w-na-potrzeby-giif"><span class="octicon octicon-link"></span></a>Szyfrowanie plików na potrzeby GIIF</h1>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p>Ten program służy do podpisywania i szyfrowania  plików na potrzeby GIIF,
+W odróżnieniu od oficjalnego oprogramowania <a href="https://www.giif.mofnet.gov.pl/giif/oprogramowanie/SecureFile.exe">SecureFile</a> pozwala on na 
+podpisywanie i szyfrowanie plików większych niż 193MB, a także wprowadza
+nowy, kompaktowy format pliku.</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+<h2>
+<a name="stary-format-pliku" class="anchor" href="#stary-format-pliku"><span class="octicon octicon-link"></span></a>Stary format pliku</h2>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<p>Do października 2014 roku GIIF obsługiwał wyłącznie jeden format pliku.
+W tym formacie plik przesyłany do GIIF jest opakowywany w serię kopert.</p>
 
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<p>Pierwsza koperta to wiadomość CMS typu signed-data. Przesyłany plik jest w niej
+przechowywany jako element "data content type". Ta koperta zawiera podpis
+elektroniczny złożony na dokumencie, oraz certyfikat użyty do podpisu.
+W kopercie może znajdować się podpisany atrybut signing-time, ale jego wartość
+jest ignorowana (dla plików przysłanych pocztą elektroniczną brany jest pod
+uwagę czas wejścia pliku na pierwszy serwer pocztowy ministerstwa, a w przypadku
+plików przesyłanych przez WWW czas rozpoczęcia przesyłania pliku). Plik, który
+jest przekazwany może być zakodowany jako DER lub BER.<br>
+Ta koperta powoduje przyrost pliku wynikowego o kilkaset bajtów.</p>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<p>Druga koperta to S/MIME, które opakowuje binarne dane z podpisanym plikiem.
+Ta koperta powoduje przyrost pliku o 34%.</p>
 
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+<p>Trzecia koperta to wiadomość CMS typu enveloped-data. Plik wynikowy z drugiej
+koperty jest w niej przechowywany jako element "data content type". Ta koperta
+jest wykorzystywana do szyfrowania podpisanych danych z użyciem certyfikatu
+GIIF. Do szyfrowania symetrycznego używany jest algorytm 3DES-EDE w trybie CDC.
+Ta koperta powoduje przyrost pliku wynikowego o kilkaset bajtów w porównaniu
+do pliku wynikowego z koperty drugiej. Szyfrowanie dodatkowo sprawia, że dobrze
+kompresowalne dane o transakcjach stają się nie kompresowalne.</p>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<p>Czwarta i ostatnia koperta to S/MIME które opakowuje binarne zaszyfrowane dane.
+Ta koperta powoduje przyrost pliku o kolejne 34%.</p>
 
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+<p>W rezultacie dwóch niepotrzebnych konwersji pliku binarnego do formatu S/MIME,
+plik rośnie o 77%, co jest duży problemem w przypadku wykazów transakcji
+z banków.</p>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<h2>
+<a name="nowy-format-pliku" class="anchor" href="#nowy-format-pliku"><span class="octicon octicon-link"></span></a>Nowy format pliku</h2>
 
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+<p>Od października 2014 GIIF obsługuje także nowy format pliku. W tym formacie
+plik przesyłany jest również opakowywany w serię kopert.</p>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+<p>Pierwsza koperta to CMS typu signed-data, identyczny jak w starym formacie
+pliku.</p>
+
+<p>Druga, opcjonalna koperta, to kompresja zgodnie z <a href="http://tools.ietf.org/html/rfc3274" title="RFC-3274">RFC-3274</a>. Wynik
+pierwszej koperty jest w niej przechowywany jako signed-data. Dane transakcji
+dobrze kompresują się z użyciem algorytmu zLib (nawet do 10% oryginalnego
+rozmiaru pliku).</p>
+
+<p>Kolejna, tym razem obowiązkowa koperta, to CMS typu enveloped-data. Przechowuje
+ona plik wynikowy z pierwszej koperty jako signed-data, lub z drugiej koperty
+jako compressed-data, jest ona wykorzystywana do szyfrowania popisanych
+(i opcjonalnie skompresowanych) danych z użyciem certyfikatu GIIF.
+Do szyfrowania symetrycznego wykorzystywany jest algorytm 3DES-EDE lub AES128,
+oba w trybie CDC.</p>
       </section>
     </div>
 
