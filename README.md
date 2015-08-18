@@ -1,7 +1,7 @@
 Szyfrowanie plików na potrzeby GIIF
 ===================================
 
-Ten program służy do podpisywania i szyfrowania  plików na potrzeby GIIF,
+Ten program służy do podpisywania i szyfrowania  plików w nowym formacie na potrzeby GIIF,
 W odróżnieniu od oficjalnego oprogramowania [SecureFile] pozwala on na 
 podpisywanie i szyfrowanie plików większych niż 193MB, a także wprowadza
 nowy, kompaktowy format pliku.
@@ -9,7 +9,7 @@ nowy, kompaktowy format pliku.
 Stary format pliku
 ------------------
 
-Do października 2014 roku GIIF obsługiwał wyłącznie jeden format pliku.
+Obecnie GIIF obsługuje wyłącznie jeden format pliku.
 W tym formacie plik przesyłany do GIIF jest opakowywany w serię kopert.
 
 Pierwsza koperta to wiadomość CMS typu signed-data. Przesyłany plik jest w niej
@@ -43,7 +43,7 @@ z banków.
 Nowy format pliku
 -----------------
 
-Planujemy obsługę nowego formatu pliku. W tym formacie
+Planowana jest, ale jeszcze nie wdrożona obsługa nowego formatu pliku. W tym formacie
 plik przesyłany będzie również opakowywany w serię kopert.
 
 Pierwsza koperta to CMS typu signed-data, identyczny jak w starym formacie
