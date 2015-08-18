@@ -43,8 +43,8 @@ z banków.
 Nowy format pliku
 -----------------
 
-Od października 2014 GIIF obsługuje także nowy format pliku. W tym formacie
-plik przesyłany jest również opakowywany w serię kopert.
+Planujemy obsługę nowego formatu pliku. W tym formacie
+plik przesyłany będzie również opakowywany w serię kopert.
 
 Pierwsza koperta to CMS typu signed-data, identyczny jak w starym formacie
 pliku.
