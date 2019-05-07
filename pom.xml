@@ -32,8 +32,8 @@ limitations under the License.
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -82,18 +82,18 @@ limitations under the License.
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.11</version>
+            <version>4.12</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcpkix-jdk15on</artifactId>
-            <version>1.49</version>
+            <version>1.61</version>
         </dependency>
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcprov-jdk15on</artifactId>
-            <version>1.49</version>
+            <version>1.61</version>
         </dependency>
         <dependency>
             <groupId>com.miglayout</groupId>
@@ -103,7 +103,7 @@ limitations under the License.
         <dependency>
         	<groupId>org.slf4j</groupId>
         	<artifactId>slf4j-api</artifactId>
-        	<version>1.7.5</version>
+        	<version>1.7.25</version>
         </dependency>
         <dependency>
         	<groupId>ch.qos.logback</groupId>
